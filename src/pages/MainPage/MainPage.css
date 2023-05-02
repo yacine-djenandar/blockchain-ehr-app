@@ -1,0 +1,9 @@
+.main-page {
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  height: 100vh;
+}
+.main-page > .img {
+  width: 40%;
+}/*# sourceMappingURL=MainPage.css.map */
