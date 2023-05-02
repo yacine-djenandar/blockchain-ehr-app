@@ -1,11 +1,14 @@
-import { TextField } from "@mui/material";
-
-
+import { InputAdornment, TextField } from "@mui/material";
+import {Person4} from "@mui/icons-material"
 
 const LogInTextField = (): JSX.Element => {
 
     return <>
-        <TextField value={"captain falcon"}  />
+        <TextField  variant="outlined" label="Username" margin="normal" fullWidth InputProps={{
+            startAdornment: <InputAdornment position="start">
+                <Person4/>
+            </InputAdornment>,
+          }} />
     </>
 }
 
