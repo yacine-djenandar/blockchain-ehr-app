@@ -1,13 +1,14 @@
-import { Box, Button, CircularProgress, IconButton, InputAdornment, Stack, Typography } from "@mui/material";
+import { Box, Button, CircularProgress, IconButton, InputAdornment, Snackbar, Stack, Typography } from "@mui/material";
 import LogInTextField from "../LogInTextField/LogInTextField";
-import { Check, ErrorOutline, Key, Padding, Password, Person4, Visibility, VisibilityOff } from "@mui/icons-material";
+import { Check, CopyAll, ErrorOutline, Key, Padding, Password, Person, Person4, Visibility, VisibilityOff, WarningAmber } from "@mui/icons-material";
 import { Field, Form, Formik } from "formik";
 import { useState } from "react";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useTheme } from '@mui/material/styles';
 import { TextField } from 'formik-mui';
 import { error } from "console";
-
+import randomWords from 'random-words'
+import PhraseDialog from "../PhraseDialog/PhraseDialog";
 
 const SignUp = (): JSX.Element => {
 
@@ -22,6 +23,19 @@ const SignUp = (): JSX.Element => {
     const [errors, setErrors] = useState<Record<string, string>>({})
 
     const [showUsernameSearching, setShowUsernameSearching] = useState<boolean>(false);
+
+    const [wordsList, setWordsList] = useState<string[]>(randomWords(10));
+
+    const [showBlur, setShowBlur] = useState<boolean>(true);
+
+    const [showDialog, setShowDialog] = useState<boolean>(false);
+
+    const [showSnackBar, setShowSnackBar] = useState<boolean>(false);
+
+    const copyToClipboard = (text: string) => {
+        setShowSnackBar(true)
+        navigator.clipboard.writeText(text);
+    }
 
     return <Stack direction={"column"} alignItems={"center"} width={"60%"} marginTop={10} position={"relative"}>
         <Typography variant="h2" marginBottom={"10px"}>
@@ -119,6 +133,33 @@ const SignUp = (): JSX.Element => {
                         }}
                         required
                     />
+                    <Box sx={{ position: "relative", margin: "30px 0px", border: `2px solid ${theme.palette.primary.main}`, borderRadius: 3 }}>
+                        <Typography component={"h5"} variant="h5" sx={{ width: "100%", height: "100%", padding: 2, borderRadius: 3, filter: !showBlur ? "" : "blur(4px)" }}>
+                            {wordsList.join(" ")}
+                        </Typography>
+                        <Box sx={{
+                            display: showBlur ? "" : "none",
+                            width: "100%", height: "100%",
+                            backgroundColor: theme.palette.grey[400], padding: 2,
+                            borderRadius: 3, position: "absolute", top: 0, left: 0,
+                            opacity: 0.8, backdropFilter: 'blur(100px)'
+                        }}>
+
+                            <Button onClick={() => setShowDialog(true)} sx={{
+                                position: "absolute", top: "50%", left: "50%",
+                                transform: "translate(-50%, -50%)", display: "inline-flex",
+                                fontSize: "1rem",
+                                fontWeight: "bold"
+                            }}
+                                variant="text" disableElevation
+                                color="primary" startIcon={<WarningAmber sx={{ width: 30, height: 30 }} />}>
+                                Reveal Secret phrase
+                            </Button>
+                        </Box>
+                        <IconButton sx={{ visibility: showBlur ? "hidden" : "" }} onClick={() => copyToClipboard(wordsList.join(" "))} color="primary">
+                            <CopyAll />
+                        </IconButton>
+                    </Box>
                     <Button
                         endIcon={<ArrowForwardIcon fontSize="large" />}
                         variant="contained"
@@ -131,7 +172,7 @@ const SignUp = (): JSX.Element => {
                     </Button>
                 </Form>
             </Formik>
-            <Typography variant="body2">
+            <Typography variant="h6" textAlign={"center"} marginTop={3}>
                 Already have an account? <a>Log In</a>
             </Typography>
         </Box>
@@ -147,6 +188,21 @@ const SignUp = (): JSX.Element => {
                 My EHR will automatically create a wallet associated with your account, after signing up, you will receive your private key, anyone having your private key will have access to your savings! So please be careful
             </Typography>
         </Stack>
+
+        <PhraseDialog show={showDialog} okCallBack={() => {
+            setShowDialog(false)
+            setShowBlur(false)
+        }} />
+
+        <Snackbar
+            open={showSnackBar}
+            autoHideDuration={2000}
+            onClose={() => setShowSnackBar(false)}
+            message="Copied to clipboard!"
+            sx={{
+                "& .MuiPaper-root": { backgroundColor: theme.palette.primary.main }
+            }}
+        />
 
     </Stack>
 }
