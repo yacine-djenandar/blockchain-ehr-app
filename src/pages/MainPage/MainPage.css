@@ -6,4 +6,19 @@
 }
 .main-page > .img {
   width: 40%;
+}
+
+.gblcbk {
+  border: 3px solid black !important;
+  cursor: grab;
+  opacity: 0.4;
+}
+.gblcbk:active {
+  cursor: grabbing;
+}
+
+.resizable-handler {
+  border: 2px solid rgb(7, 100, 84);
+  border-radius: 50% !important;
+  background-color: white;
 }/*# sourceMappingURL=MainPage.css.map */

@@ -1,3 +1,5 @@
+$main-color: rgb(7, 100, 84);
+
 .main-page {
     display: flex;
     flex-direction: row;
@@ -6,4 +8,19 @@
     & > .img {
         width: 40%;
     }
+}
+
+.gblcbk {
+    border: 3px solid black !important;
+    cursor: grab;
+    opacity: 0.4;
+    &:active {
+        cursor: grabbing;
+    }
+}
+
+.resizable-handler {
+    border: 2px solid $main-color;
+    border-radius: 50% !important;
+    background-color: white;
 }

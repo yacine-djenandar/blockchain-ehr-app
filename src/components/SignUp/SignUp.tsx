@@ -9,6 +9,7 @@ import { TextField } from 'formik-mui';
 import { error } from "console";
 import randomWords from 'random-words'
 import PhraseDialog from "../PhraseDialog/PhraseDialog";
+// import MetaMaskSDK, { CommunicationLayerPreference } from "@metamask/sdk";
 
 const SignUp = (): JSX.Element => {
 
@@ -36,6 +37,24 @@ const SignUp = (): JSX.Element => {
         setShowSnackBar(true)
         navigator.clipboard.writeText(text);
     }
+
+    // const openMetaMask = () => {
+    //     // const options = {
+    //     //     injectProvider: false,
+    //     //     communicationLayerPreference: 'webrtc',
+    //     // };
+
+    //     const MMSDK = new MetaMaskSDK({
+    //         injectProvider: false,
+    //         communicationLayerPreference: CommunicationLayerPreference.WEBRTC
+    //     });
+
+
+    //     const ethereum = MMSDK.getProvider();
+
+    //     ethereum?.request({ method: 'eth_requestAccounts', params: [] });
+
+    // }
 
     return <Stack direction={"column"} alignItems={"center"} width={"60%"} marginTop={10} position={"relative"}>
         <Typography variant="h2" marginBottom={"10px"}>
@@ -160,18 +179,18 @@ const SignUp = (): JSX.Element => {
                             <CopyAll />
                         </IconButton>
                     </Box>
-                    <Button
-                        endIcon={<ArrowForwardIcon fontSize="large" />}
-                        variant="contained"
-                        disableElevation
-                        size="large"
-                        sx={{ fontSize: "2rem", padding: "5px 50px", margin: "10px auto", display: "flex" }}
-                        type="submit"
-                    >
-                        Sign Up
-                    </Button>
                 </Form>
             </Formik>
+            <Button
+                endIcon={<ArrowForwardIcon fontSize="large" />}
+                variant="contained"
+                disableElevation
+                size="large"
+                sx={{ fontSize: "2rem", padding: "5px 50px", margin: "10px auto", display: "flex" }}
+                type="submit"
+            >
+                Sign Up
+            </Button>
             <Typography variant="h6" textAlign={"center"} marginTop={3}>
                 Already have an account? <a>Log In</a>
             </Typography>

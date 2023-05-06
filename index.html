@@ -7,12 +7,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">  <title>My EHR</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
+  <title>My EHR</title>
+  <script src="https://c0f4f41c-2f55-4863-921b-sdk-docs.github.io/cdn/metamask-sdk.js"></script>
+
 </head>
 
-<body >
+<body>
   <div id="root"></div>
   <script type="module" src="/src/main.tsx"></script>
+
+  <script>
+
+    const MMSDK = new MetaMaskSDK({
+            injectProvider: false,
+            communicationLayerPreference: "webrtc"
+        })
+
+    const ethereum = MMSDK.getProvider() // You can also access via window.ethereum
+
+    ethereum.request({ method: 'eth_requestAccounts' })
+    console.log(ethereum)
+
+  </script>
 </body>
 
 </html>

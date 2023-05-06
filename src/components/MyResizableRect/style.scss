@@ -1,0 +1,7 @@
+$main-color: rgb(7, 100, 84);
+
+.input {
+    &:focus {
+        background-color: lighten($main-color, 10%) !important;
+    }
+}
